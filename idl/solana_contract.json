@@ -1,167 +1,90 @@
 {
-  "version": "0.1.0",
-  "name": "solana_contract",
+  "address": "5cqLDLSvNPwc2wGNwyZvnUiSqh1gh4PrXNNQP8CmcaFP",
+  "metadata": {
+    "name": "solana_contract",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
   "instructions": [
     {
-      "name": "initWallet",
-      "accounts": [
-        {
-          "name": "vault",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "owner",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
+      "name": "add_to_whitelist",
+      "discriminator": [
+        157,
+        211,
+        52,
+        54,
+        144,
+        81,
+        5,
+        55
       ],
-      "args": []
-    },
-    {
-      "name": "addToWhitelist",
       "accounts": [
         {
           "name": "vault",
-          "isMut": true,
-          "isSigner": false
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  104,
+                  105,
+                  116,
+                  101,
+                  45,
+                  108,
+                  105,
+                  115,
+                  116
+                ]
+              }
+            ]
+          }
         },
         {
           "name": "owner",
-          "isMut": true,
-          "isSigner": true
+          "writable": true,
+          "signer": true
         }
       ],
       "args": [
         {
           "name": "user",
-          "type": "publicKey"
+          "type": "pubkey"
         }
       ]
     },
     {
-      "name": "setFeeWallet",
-      "accounts": [
-        {
-          "name": "vault",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "owner",
-          "isMut": true,
-          "isSigner": true
-        }
+      "name": "approve_delegate",
+      "discriminator": [
+        68,
+        6,
+        248,
+        64,
+        195,
+        222,
+        182,
+        223
       ],
-      "args": [
-        {
-          "name": "feeWallet",
-          "type": "publicKey"
-        }
-      ]
-    },
-    {
-      "name": "removeFromWhitelist",
-      "accounts": [
-        {
-          "name": "vault",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "owner",
-          "isMut": true,
-          "isSigner": true
-        }
-      ],
-      "args": [
-        {
-          "name": "user",
-          "type": "publicKey"
-        }
-      ]
-    },
-    {
-      "name": "purchaseProcess",
-      "accounts": [
-        {
-          "name": "vault",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "buyer",
-          "isMut": false,
-          "isSigner": true
-        },
-        {
-          "name": "source",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "merchantTokenAccount",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "feeWalletTokenAccount",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "delegate",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": [
-        {
-          "name": "amount",
-          "type": "u64"
-        },
-        {
-          "name": "merchantFeeBps",
-          "type": "u64"
-        },
-        {
-          "name": "feeWalletBps",
-          "type": "u64"
-        }
-      ]
-    },
-    {
-      "name": "approveDelegate",
       "accounts": [
         {
           "name": "authority",
-          "isMut": true,
-          "isSigner": true
+          "writable": true,
+          "signer": true
         },
         {
           "name": "to",
-          "isMut": true,
-          "isSigner": false
+          "writable": true
         },
         {
           "name": "delegate",
-          "isMut": true,
-          "isSigner": false
+          "writable": true
         },
         {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
         }
       ],
       "args": [
@@ -172,95 +95,356 @@
       ]
     },
     {
-      "name": "changeOwnerShip",
+      "name": "change_account_owner",
+      "discriminator": [
+        204,
+        141,
+        65,
+        83,
+        37,
+        61,
+        187,
+        173
+      ],
       "accounts": [
         {
-          "name": "currentAuthority",
-          "isMut": true,
-          "isSigner": true
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  104,
+                  105,
+                  116,
+                  101,
+                  45,
+                  108,
+                  105,
+                  115,
+                  116
+                ]
+              }
+            ]
+          }
         },
         {
-          "name": "programId",
-          "isMut": true,
-          "isSigner": false
+          "name": "owner",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "vault"
+          ]
         },
         {
-          "name": "programData",
-          "isMut": true,
-          "isSigner": false
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "new_owner",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "change_owner_ship",
+      "discriminator": [
+        122,
+        36,
+        20,
+        180,
+        92,
+        156,
+        202,
+        154
+      ],
+      "accounts": [
+        {
+          "name": "current_authority",
+          "writable": true,
+          "signer": true
         },
         {
-          "name": "newAuthority",
-          "isMut": false,
-          "isSigner": false
+          "name": "program_id",
+          "writable": true
         },
         {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
+          "name": "program_data",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "program_id"
+              }
+            ]
+          }
         },
         {
-          "name": "bpfUpgradableLoader",
-          "isMut": false,
-          "isSigner": false
+          "name": "new_authority"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "bpf_upgradable_loader",
+          "address": "BPFLoaderUpgradeab1e11111111111111111111111"
         }
       ],
       "args": []
+    },
+    {
+      "name": "init_wallet",
+      "discriminator": [
+        141,
+        132,
+        233,
+        130,
+        168,
+        183,
+        10,
+        119
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  104,
+                  105,
+                  116,
+                  101,
+                  45,
+                  108,
+                  105,
+                  115,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "purchase_process",
+      "discriminator": [
+        46,
+        177,
+        133,
+        191,
+        58,
+        138,
+        95,
+        164
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  104,
+                  105,
+                  116,
+                  101,
+                  45,
+                  108,
+                  105,
+                  115,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "buyer",
+          "signer": true
+        },
+        {
+          "name": "source",
+          "writable": true
+        },
+        {
+          "name": "merchant_token_account",
+          "writable": true
+        },
+        {
+          "name": "fee_wallet_token_account",
+          "writable": true
+        },
+        {
+          "name": "delegate"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "merchant_fee_bps",
+          "type": "u64"
+        },
+        {
+          "name": "fee_wallet_bps",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "remove_from_whitelist",
+      "discriminator": [
+        7,
+        144,
+        216,
+        239,
+        243,
+        236,
+        193,
+        235
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  104,
+                  105,
+                  116,
+                  101,
+                  45,
+                  108,
+                  105,
+                  115,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "user",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "set_fee_wallet",
+      "discriminator": [
+        108,
+        242,
+        79,
+        79,
+        203,
+        119,
+        109,
+        211
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  104,
+                  105,
+                  116,
+                  101,
+                  45,
+                  108,
+                  105,
+                  115,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "fee_wallet",
+          "type": "pubkey"
+        }
+      ]
     }
   ],
   "accounts": [
     {
       "name": "Vault",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "owner",
-            "type": "publicKey"
-          },
-          {
-            "name": "whitelist",
-            "type": {
-              "vec": "publicKey"
-            }
-          },
-          {
-            "name": "feewallet",
-            "type": "publicKey"
-          }
-        ]
-      }
+      "discriminator": [
+        211,
+        8,
+        232,
+        43,
+        2,
+        152,
+        117,
+        119
+      ]
     }
   ],
   "events": [
     {
       "name": "ProcessPurchaseEvent",
-      "fields": [
-        {
-          "name": "purchaser",
-          "type": "publicKey",
-          "index": false
-        },
-        {
-          "name": "amount",
-          "type": "u64",
-          "index": false
-        },
-        {
-          "name": "sellerWallet",
-          "type": "publicKey",
-          "index": false
-        },
-        {
-          "name": "feeWallet",
-          "type": "publicKey",
-          "index": false
-        },
-        {
-          "name": "fee",
-          "type": "u64",
-          "index": false
-        }
+      "discriminator": [
+        54,
+        193,
+        204,
+        89,
+        173,
+        113,
+        108,
+        30
       ]
     }
   ],
@@ -284,6 +468,58 @@
       "code": 6003,
       "name": "UserNotWhitelisted",
       "msg": "User is not whitelisted"
+    }
+  ],
+  "types": [
+    {
+      "name": "ProcessPurchaseEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "purchaser",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "seller_wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "fee_wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "fee",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Vault",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "whitelist",
+            "type": {
+              "vec": "pubkey"
+            }
+          },
+          {
+            "name": "feewallet",
+            "type": "pubkey"
+          }
+        ]
+      }
     }
   ]
 }

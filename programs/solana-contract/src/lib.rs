@@ -5,22 +5,18 @@ use solana_security_txt::security_txt;
 #[cfg(not(feature = "no-entrypoint"))]
 security_txt! {
     // Required fields
-    name: "solana",
-    project_url: "http://example.com",
-    contacts: "email:example@example.com,link:https://example.com/security,discord:example#1234",
+    name: "Xion Global",
+    project_url: "https://xion.global",
+    contacts: "contact@xion.global,
+    link:https://xion.global,telegram:@xionglobal",
     policy: "https://github.com/solana-labs/solana/blob/master/SECURITY.md",
-
     // Optional Fields
     preferred_languages: "en,de",
-    source_code: "https://github.com/example/example",
+    source_code: "",
     auditors: "None",
-    acknowledgements: "
-The following hackers could've stolen all our money but didn't:
-- Neodyme
-"
+    acknowledgements: ""
 }
-declare_id!("8p5kaH1np1p1YL7rSXDPFEmrtg5fwGBxEThmztuEB8en");
-
+declare_id!("5cqLDLSvNPwc2wGNwyZvnUiSqh1gh4PrXNNQP8CmcaFP");
 #[program]
 pub mod solana_contract {
 
@@ -93,8 +89,8 @@ pub mod solana_contract {
         );
 
         // Calculate fees
-        let merchant_fee = ((merchant_fee_bps as f64 / 10000 as f64) * amount as f64) as u64 ;
-        let fee_wallet_fee = ((fee_wallet_bps as f64 / 10000 as f64) * amount as f64) as u64 ;
+        let merchant_fee = ((merchant_fee_bps as f64 / 10000 as f64) * amount as f64) as u64;
+        let fee_wallet_fee = ((fee_wallet_bps as f64 / 10000 as f64) * amount as f64) as u64;
         // msg!("the natural value is {}",merchant_fee_bps);
         // msg!("the divided value is {}",merchant_fee_bps/10000.0);
 
@@ -178,6 +174,15 @@ pub mod solana_contract {
         )?;
         Ok(())
     }
+    pub fn change_account_owner(ctx: Context<ChangeAccountOwner>, new_owner: Pubkey) -> Result<()> {
+        let vault: &mut Account<Vault> = &mut ctx.accounts.vault;
+        require!(
+            *ctx.accounts.owner.key == vault.owner,
+            CustomError::Unauthorized
+        );
+        vault.owner = new_owner;
+        Ok(())
+    }
 }
 #[derive(Accounts)]
 pub struct TransferOwnerShip<'info> {
@@ -185,6 +190,7 @@ pub struct TransferOwnerShip<'info> {
     pub current_authority: Signer<'info>,
 
     #[account(mut, executable)]
+    /// CHECK:
     pub program_id: AccountInfo<'info>,
 
     #[account(mut,
@@ -192,23 +198,33 @@ pub struct TransferOwnerShip<'info> {
         bump,
         seeds::program = BpfLoaderUpgradeable::id()
     )]
+    /// CHECK:
     pub program_data: AccountInfo<'info>,
+    /// CHECK:
     pub new_authority: AccountInfo<'info>,
-
+    /// CHECK:
     pub system_program: Program<'info, System>,
-
+    /// CHECK:
     pub bpf_upgradable_loader: Program<'info, BpfLoaderUpgradeable>,
 }
 #[derive(Accounts)]
 #[instruction()]
 pub struct Initialize<'info> {
-    #[account(init, seeds = [b"white-list".as_ref()], bump, payer = owner, space = 8 + 32 + 1024)]
+    #[account(init, seeds = [b"white-list".as_ref()], bump, payer = owner, space = 8 + 32 + 9000)]
     pub vault: Account<'info, Vault>,
     #[account(mut)]
     pub owner: Signer<'info>,
     pub system_program: Program<'info, System>,
 }
-
+#[derive(Accounts)]
+#[instruction()]
+pub struct ChangeAccountOwner<'info> {
+    #[account(mut, seeds = [b"white-list".as_ref()], bump ,has_one = owner)]
+    pub vault: Account<'info, Vault>,
+    #[account(mut)]
+    pub owner: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
 #[derive(Accounts)]
 pub struct ManageWhitelist<'info> {
     #[account(mut, seeds = [b"white-list".as_ref()], bump)]

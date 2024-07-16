@@ -1,128 +1,313 @@
+/**
+ * Program IDL in camelCase format in order to be used in JS/TS.
+ *
+ * Note that this is only a type helper and is not the actual IDL. The original
+ * IDL can be found at `target/idl/solana_contract.json`.
+ */
 export type SolanaContract = {
-  "version": "0.1.0",
-  "name": "solana_contract",
+  "address": "5cqLDLSvNPwc2wGNwyZvnUiSqh1gh4PrXNNQP8CmcaFP",
+  "metadata": {
+    "name": "solanaContract",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
   "instructions": [
     {
-      "name": "initWallet",
+      "name": "addToWhitelist",
+      "discriminator": [
+        157,
+        211,
+        52,
+        54,
+        144,
+        81,
+        5,
+        55
+      ],
       "accounts": [
         {
           "name": "vault",
-          "isMut": true,
-          "isSigner": false
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  104,
+                  105,
+                  116,
+                  101,
+                  45,
+                  108,
+                  105,
+                  115,
+                  116
+                ]
+              }
+            ]
+          }
         },
         {
           "name": "owner",
-          "isMut": true,
-          "isSigner": true
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "user",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "approveDelegate",
+      "discriminator": [
+        68,
+        6,
+        248,
+        64,
+        195,
+        222,
+        182,
+        223
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "to",
+          "writable": true
+        },
+        {
+          "name": "delegate",
+          "writable": true
+        },
+        {
+          "name": "tokenProgram",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "changeAccountOwner",
+      "discriminator": [
+        204,
+        141,
+        65,
+        83,
+        37,
+        61,
+        187,
+        173
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  104,
+                  105,
+                  116,
+                  101,
+                  45,
+                  108,
+                  105,
+                  115,
+                  116
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "vault"
+          ]
         },
         {
           "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "newOwner",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "changeOwnerShip",
+      "discriminator": [
+        122,
+        36,
+        20,
+        180,
+        92,
+        156,
+        202,
+        154
+      ],
+      "accounts": [
+        {
+          "name": "currentAuthority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "programId",
+          "writable": true
+        },
+        {
+          "name": "programData",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "programId"
+              }
+            ]
+          }
+        },
+        {
+          "name": "newAuthority"
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "bpfUpgradableLoader",
+          "address": "BPFLoaderUpgradeab1e11111111111111111111111"
         }
       ],
       "args": []
     },
     {
-      "name": "addToWhitelist",
+      "name": "initWallet",
+      "discriminator": [
+        141,
+        132,
+        233,
+        130,
+        168,
+        183,
+        10,
+        119
+      ],
       "accounts": [
         {
           "name": "vault",
-          "isMut": true,
-          "isSigner": false
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  104,
+                  105,
+                  116,
+                  101,
+                  45,
+                  108,
+                  105,
+                  115,
+                  116
+                ]
+              }
+            ]
+          }
         },
         {
           "name": "owner",
-          "isMut": true,
-          "isSigner": true
-        }
-      ],
-      "args": [
-        {
-          "name": "user",
-          "type": "publicKey"
-        }
-      ]
-    },
-    {
-      "name": "setFeeWallet",
-      "accounts": [
-        {
-          "name": "vault",
-          "isMut": true,
-          "isSigner": false
+          "writable": true,
+          "signer": true
         },
         {
-          "name": "owner",
-          "isMut": true,
-          "isSigner": true
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
         }
       ],
-      "args": [
-        {
-          "name": "feeWallet",
-          "type": "publicKey"
-        }
-      ]
-    },
-    {
-      "name": "removeFromWhitelist",
-      "accounts": [
-        {
-          "name": "vault",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "owner",
-          "isMut": true,
-          "isSigner": true
-        }
-      ],
-      "args": [
-        {
-          "name": "user",
-          "type": "publicKey"
-        }
-      ]
+      "args": []
     },
     {
       "name": "purchaseProcess",
+      "discriminator": [
+        46,
+        177,
+        133,
+        191,
+        58,
+        138,
+        95,
+        164
+      ],
       "accounts": [
         {
           "name": "vault",
-          "isMut": false,
-          "isSigner": false
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  104,
+                  105,
+                  116,
+                  101,
+                  45,
+                  108,
+                  105,
+                  115,
+                  116
+                ]
+              }
+            ]
+          }
         },
         {
           "name": "buyer",
-          "isMut": false,
-          "isSigner": true
+          "signer": true
         },
         {
           "name": "source",
-          "isMut": true,
-          "isSigner": false
+          "writable": true
         },
         {
           "name": "merchantTokenAccount",
-          "isMut": true,
-          "isSigner": false
+          "writable": true
         },
         {
           "name": "feeWalletTokenAccount",
-          "isMut": true,
-          "isSigner": false
+          "writable": true
         },
         {
-          "name": "delegate",
-          "isMut": false,
-          "isSigner": false
+          "name": "delegate"
         },
         {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
+          "name": "tokenProgram"
         }
       ],
       "args": [
@@ -141,364 +326,185 @@ export type SolanaContract = {
       ]
     },
     {
-      "name": "approveDelegate",
+      "name": "removeFromWhitelist",
+      "discriminator": [
+        7,
+        144,
+        216,
+        239,
+        243,
+        236,
+        193,
+        235
+      ],
       "accounts": [
         {
-          "name": "authority",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "to",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "delegate",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": [
-        {
-          "name": "amount",
-          "type": "u64"
-        }
-      ]
-    },
-    {
-      "name": "changeOwnerShip",
-      "accounts": [
-        {
-          "name": "currentAuthority",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "programId",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "programData",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "newAuthority",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "bpfUpgradableLoader",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": []
-    }
-  ],
-  "accounts": [
-    {
-      "name": "vault",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "owner",
-            "type": "publicKey"
-          },
-          {
-            "name": "whitelist",
-            "type": {
-              "vec": "publicKey"
-            }
-          },
-          {
-            "name": "feewallet",
-            "type": "publicKey"
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  104,
+                  105,
+                  116,
+                  101,
+                  45,
+                  108,
+                  105,
+                  115,
+                  116
+                ]
+              }
+            ]
           }
-        ]
-      }
-    }
-  ],
-  "events": [
-    {
-      "name": "ProcessPurchaseEvent",
-      "fields": [
-        {
-          "name": "purchaser",
-          "type": "publicKey",
-          "index": false
-        },
-        {
-          "name": "amount",
-          "type": "u64",
-          "index": false
-        },
-        {
-          "name": "sellerWallet",
-          "type": "publicKey",
-          "index": false
-        },
-        {
-          "name": "feeWallet",
-          "type": "publicKey",
-          "index": false
-        },
-        {
-          "name": "fee",
-          "type": "u64",
-          "index": false
-        }
-      ]
-    }
-  ],
-  "errors": [
-    {
-      "code": 6000,
-      "name": "Unauthorized",
-      "msg": "Unauthorized"
-    },
-    {
-      "code": 6001,
-      "name": "NotWhitelisted",
-      "msg": "Not Whitelisted"
-    },
-    {
-      "code": 6002,
-      "name": "UserAlreadyWhitelisted",
-      "msg": "User is already whitelisted"
-    },
-    {
-      "code": 6003,
-      "name": "UserNotWhitelisted",
-      "msg": "User is not whitelisted"
-    }
-  ]
-};
-
-export const IDL: SolanaContract = {
-  "version": "0.1.0",
-  "name": "solana_contract",
-  "instructions": [
-    {
-      "name": "initWallet",
-      "accounts": [
-        {
-          "name": "vault",
-          "isMut": true,
-          "isSigner": false
         },
         {
           "name": "owner",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": []
-    },
-    {
-      "name": "addToWhitelist",
-      "accounts": [
-        {
-          "name": "vault",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "owner",
-          "isMut": true,
-          "isSigner": true
+          "writable": true,
+          "signer": true
         }
       ],
       "args": [
         {
           "name": "user",
-          "type": "publicKey"
+          "type": "pubkey"
         }
       ]
     },
     {
       "name": "setFeeWallet",
+      "discriminator": [
+        108,
+        242,
+        79,
+        79,
+        203,
+        119,
+        109,
+        211
+      ],
       "accounts": [
         {
           "name": "vault",
-          "isMut": true,
-          "isSigner": false
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  104,
+                  105,
+                  116,
+                  101,
+                  45,
+                  108,
+                  105,
+                  115,
+                  116
+                ]
+              }
+            ]
+          }
         },
         {
           "name": "owner",
-          "isMut": true,
-          "isSigner": true
+          "writable": true,
+          "signer": true
         }
       ],
       "args": [
         {
           "name": "feeWallet",
-          "type": "publicKey"
+          "type": "pubkey"
         }
       ]
-    },
-    {
-      "name": "removeFromWhitelist",
-      "accounts": [
-        {
-          "name": "vault",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "owner",
-          "isMut": true,
-          "isSigner": true
-        }
-      ],
-      "args": [
-        {
-          "name": "user",
-          "type": "publicKey"
-        }
-      ]
-    },
-    {
-      "name": "purchaseProcess",
-      "accounts": [
-        {
-          "name": "vault",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "buyer",
-          "isMut": false,
-          "isSigner": true
-        },
-        {
-          "name": "source",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "merchantTokenAccount",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "feeWalletTokenAccount",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "delegate",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": [
-        {
-          "name": "amount",
-          "type": "u64"
-        },
-        {
-          "name": "merchantFeeBps",
-          "type": "u64"
-        },
-        {
-          "name": "feeWalletBps",
-          "type": "u64"
-        }
-      ]
-    },
-    {
-      "name": "approveDelegate",
-      "accounts": [
-        {
-          "name": "authority",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "to",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "delegate",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": [
-        {
-          "name": "amount",
-          "type": "u64"
-        }
-      ]
-    },
-    {
-      "name": "changeOwnerShip",
-      "accounts": [
-        {
-          "name": "currentAuthority",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "programId",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "programData",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "newAuthority",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "bpfUpgradableLoader",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": []
     }
   ],
   "accounts": [
+    {
+      "name": "vault",
+      "discriminator": [
+        211,
+        8,
+        232,
+        43,
+        2,
+        152,
+        117,
+        119
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "processPurchaseEvent",
+      "discriminator": [
+        54,
+        193,
+        204,
+        89,
+        173,
+        113,
+        108,
+        30
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "unauthorized",
+      "msg": "unauthorized"
+    },
+    {
+      "code": 6001,
+      "name": "notWhitelisted",
+      "msg": "Not Whitelisted"
+    },
+    {
+      "code": 6002,
+      "name": "userAlreadyWhitelisted",
+      "msg": "User is already whitelisted"
+    },
+    {
+      "code": 6003,
+      "name": "userNotWhitelisted",
+      "msg": "User is not whitelisted"
+    }
+  ],
+  "types": [
+    {
+      "name": "processPurchaseEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "purchaser",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "sellerWallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "feeWallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "fee",
+            "type": "u64"
+          }
+        ]
+      }
+    },
     {
       "name": "vault",
       "type": {
@@ -506,74 +512,20 @@ export const IDL: SolanaContract = {
         "fields": [
           {
             "name": "owner",
-            "type": "publicKey"
+            "type": "pubkey"
           },
           {
             "name": "whitelist",
             "type": {
-              "vec": "publicKey"
+              "vec": "pubkey"
             }
           },
           {
             "name": "feewallet",
-            "type": "publicKey"
+            "type": "pubkey"
           }
         ]
       }
-    }
-  ],
-  "events": [
-    {
-      "name": "ProcessPurchaseEvent",
-      "fields": [
-        {
-          "name": "purchaser",
-          "type": "publicKey",
-          "index": false
-        },
-        {
-          "name": "amount",
-          "type": "u64",
-          "index": false
-        },
-        {
-          "name": "sellerWallet",
-          "type": "publicKey",
-          "index": false
-        },
-        {
-          "name": "feeWallet",
-          "type": "publicKey",
-          "index": false
-        },
-        {
-          "name": "fee",
-          "type": "u64",
-          "index": false
-        }
-      ]
-    }
-  ],
-  "errors": [
-    {
-      "code": 6000,
-      "name": "Unauthorized",
-      "msg": "Unauthorized"
-    },
-    {
-      "code": 6001,
-      "name": "NotWhitelisted",
-      "msg": "Not Whitelisted"
-    },
-    {
-      "code": 6002,
-      "name": "UserAlreadyWhitelisted",
-      "msg": "User is already whitelisted"
-    },
-    {
-      "code": 6003,
-      "name": "UserNotWhitelisted",
-      "msg": "User is not whitelisted"
     }
   ]
 };
