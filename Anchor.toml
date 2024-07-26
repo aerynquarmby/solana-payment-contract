@@ -5,13 +5,13 @@ resolution = true
 skip-lint = false
 
 [programs.mainnet]
-solana_contract = "5cqLDLSvNPwc2wGNwyZvnUiSqh1gh4PrXNNQP8CmcaFP"
+solana_contract = "CGU1WsfUbydfjimDfLw5PmJNEaYfLUcaYvk5vZhjGSA2"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "https://neat-delicate-bush.solana-mainnet.quiknode.pro/d3829ce0c895d3a2487e473dc9da6cc9072190ac/"
+cluster = "https://mainnet.helius-rpc.com/?api-key=7066b22c-8a29-4fb8-ad2d-d93e14bf6e19"
 wallet = "~/.config/solana/id.json"
 
 [scripts]

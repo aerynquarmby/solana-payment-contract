@@ -16,7 +16,7 @@ security_txt! {
     auditors: "None",
     acknowledgements: ""
 }
-declare_id!("5cqLDLSvNPwc2wGNwyZvnUiSqh1gh4PrXNNQP8CmcaFP");
+declare_id!("CGU1WsfUbydfjimDfLw5PmJNEaYfLUcaYvk5vZhjGSA2");
 #[program]
 pub mod solana_contract {
 
@@ -84,7 +84,8 @@ pub mod solana_contract {
         let signer = &[&seeds[..]];
 
         require!(
-            *ctx.accounts.buyer.key == vault.owner,
+            *ctx.accounts.buyer.key == vault.owner
+                || vault.whitelist.contains(&ctx.accounts.buyer.key),
             CustomError::Unauthorized
         );
 
