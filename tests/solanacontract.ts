@@ -6,8 +6,22 @@ import { utf8 } from "@project-serum/anchor/dist/cjs/utils/bytes";
 import { SYSTEM_PROGRAM_ID } from "@raydium-io/raydium-sdk";
 import { createAccount, createMint, mintTo, TOKEN_PROGRAM_ID } from "@solana/spl-token"
 import { BN } from "bn.js";
+import {
+  Metadata,
+  PROGRAM_ID as TOKEN_METADATA_PROGRAM_ID,
+} from "@metaplex-foundation/mpl-token-metadata";
 const bPfLoader = new PublicKey("BPFLoaderUpgradeab1e11111111111111111111111")
 describe("solana-contract", async () => {
+
+  const masterEditionAddress = (await anchor.web3.PublicKey.findProgramAddressSync(
+    [
+      Buffer.from("metadata"),
+      TOKEN_METADATA_PROGRAM_ID.toBuffer(),
+      collectionMint.publicKey.toBuffer(),
+      Buffer.from("edition"),
+    ],
+    TOKEN_METADATA_PROGRAM_ID
+  ))[0];
   // Configure the client to use the local cluster.
   const provider = anchor.AnchorProvider.env();
   const connection = new Connection(clusterApiUrl("devnet"), "confirmed")
