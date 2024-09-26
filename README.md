@@ -1,5 +1,7 @@
 # Solana Smart Contract
 
+Address - CGU1WsfUbydfjimDfLw5PmJNEaYfLUcaYvk5vZhjGSA2
+
 ## Installation
 
 Install Rust from https://www.rust-lang.org/tools/install
