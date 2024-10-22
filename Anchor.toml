@@ -5,13 +5,13 @@ resolution = true
 skip-lint = false
 
 [programs.mainnet]
-solana_contract = "CGU1WsfUbydfjimDfLw5PmJNEaYfLUcaYvk5vZhjGSA2"
+solana_contract = "93PpL2ZKMWvBhhQ6VYNiHmJPNrVANUH8kcW5UpU6dzjM"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "https://rpc.shyft.to?api_key=GpR6DTSKjL7YmSIY"
+cluster = "https://fluent-cosmopolitan-patron.solana-mainnet.quiknode.pro/18ab6c68fc21ecc31d10afbde4fb13be00f9be04/"
 wallet = "~/.config/solana/id.json"
 
 [scripts]

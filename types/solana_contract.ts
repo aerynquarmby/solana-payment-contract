@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/solana_contract.json`.
  */
 export type SolanaContract = {
-  "address": "CGU1WsfUbydfjimDfLw5PmJNEaYfLUcaYvk5vZhjGSA2",
+  "address": "93PpL2ZKMWvBhhQ6VYNiHmJPNrVANUH8kcW5UpU6dzjM",
   "metadata": {
     "name": "solanaContract",
     "version": "0.1.0",
@@ -76,6 +76,18 @@ export type SolanaContract = {
       ],
       "accounts": [
         {
+          "name": "restritedAccount",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
           "name": "authority",
           "writable": true,
           "signer": true
@@ -91,6 +103,10 @@ export type SolanaContract = {
         {
           "name": "tokenProgram",
           "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
         }
       ],
       "args": [
@@ -205,6 +221,53 @@ export type SolanaContract = {
       "args": []
     },
     {
+      "name": "initTokenProgram",
+      "discriminator": [
+        240,
+        88,
+        37,
+        106,
+        172,
+        180,
+        164,
+        104
+      ],
+      "accounts": [
+        {
+          "name": "programStakeAccount",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "mintAddress"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault"
+        },
+        {
+          "name": "mintAddress"
+        },
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "tokenProgram",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
       "name": "initWallet",
       "discriminator": [
         141,
@@ -288,6 +351,10 @@ export type SolanaContract = {
           }
         },
         {
+          "name": "restritedAccount",
+          "writable": true
+        },
+        {
           "name": "buyer",
           "signer": true
         },
@@ -304,10 +371,15 @@ export type SolanaContract = {
           "writable": true
         },
         {
+          "name": "pdaTokenAccount",
+          "writable": true
+        },
+        {
           "name": "delegate"
         },
         {
-          "name": "tokenProgram"
+          "name": "tokenProgram",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
         }
       ],
       "args": [
@@ -375,6 +447,86 @@ export type SolanaContract = {
       ]
     },
     {
+      "name": "restrictedBalanceDeposit",
+      "discriminator": [
+        174,
+        131,
+        137,
+        8,
+        246,
+        158,
+        64,
+        176
+      ],
+      "accounts": [
+        {
+          "name": "restritedAccount",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "arg",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "programStakeAccount",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "mintAddress"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "mintAddress"
+        },
+        {
+          "name": "source",
+          "writable": true
+        },
+        {
+          "name": "to",
+          "writable": true
+        },
+        {
+          "name": "delegate"
+        },
+        {
+          "name": "tokenProgram",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "user",
+          "type": "pubkey"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
       "name": "setFeeWallet",
       "discriminator": [
         108,
@@ -426,6 +578,19 @@ export type SolanaContract = {
   ],
   "accounts": [
     {
+      "name": "restrictedAccount",
+      "discriminator": [
+        25,
+        15,
+        213,
+        98,
+        43,
+        1,
+        244,
+        213
+      ]
+    },
+    {
       "name": "vault",
       "discriminator": [
         211,
@@ -474,6 +639,36 @@ export type SolanaContract = {
       "code": 6003,
       "name": "userNotWhitelisted",
       "msg": "User is not whitelisted"
+    },
+    {
+      "code": 6004,
+      "name": "invalidFee",
+      "msg": "Invalid fee basis points."
+    },
+    {
+      "code": 6005,
+      "name": "insufficientFundsForFees",
+      "msg": "Insufficient funds after fees."
+    },
+    {
+      "code": 6006,
+      "name": "unauthorizedDelegate",
+      "msg": "Unauthorized delegate."
+    },
+    {
+      "code": 6007,
+      "name": "restrictedAccount",
+      "msg": "Restricted account."
+    },
+    {
+      "code": 6008,
+      "name": "invalidDelegate",
+      "msg": "Invalid delegate provided."
+    },
+    {
+      "code": 6009,
+      "name": "overFlowError",
+      "msg": "number error overflow"
     }
   ],
   "types": [
@@ -500,6 +695,22 @@ export type SolanaContract = {
           },
           {
             "name": "fee",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "restrictedAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "userAddress",
+            "type": "pubkey"
+          },
+          {
+            "name": "balance",
             "type": "u64"
           }
         ]

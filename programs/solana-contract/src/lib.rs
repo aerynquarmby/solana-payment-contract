@@ -1,7 +1,6 @@
 use anchor_lang::prelude::*;
 use anchor_lang::solana_program;
 use solana_security_txt::security_txt;
-
 use anchor_spl::token::{self, Approve, Mint, Token, TokenAccount, Transfer};
 #[cfg(not(feature = "no-entrypoint"))]
 security_txt! {
@@ -17,7 +16,7 @@ security_txt! {
     auditors: "None",
     acknowledgements: ""
 }
-declare_id!("CGU1WsfUbydfjimDfLw5PmJNEaYfLUcaYvk5vZhjGSA2");
+declare_id!("93PpL2ZKMWvBhhQ6VYNiHmJPNrVANUH8kcW5UpU6dzjM");
 #[program]
 pub mod solana_contract {
 

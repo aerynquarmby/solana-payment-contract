@@ -1,5 +1,5 @@
 {
-  "address": "CGU1WsfUbydfjimDfLw5PmJNEaYfLUcaYvk5vZhjGSA2",
+  "address": "93PpL2ZKMWvBhhQ6VYNiHmJPNrVANUH8kcW5UpU6dzjM",
   "metadata": {
     "name": "solana_contract",
     "version": "0.1.0",
@@ -70,6 +70,18 @@
       ],
       "accounts": [
         {
+          "name": "restrited_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
           "name": "authority",
           "writable": true,
           "signer": true
@@ -85,6 +97,10 @@
         {
           "name": "token_program",
           "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
         }
       ],
       "args": [
@@ -199,6 +215,53 @@
       "args": []
     },
     {
+      "name": "init_token_program",
+      "discriminator": [
+        240,
+        88,
+        37,
+        106,
+        172,
+        180,
+        164,
+        104
+      ],
+      "accounts": [
+        {
+          "name": "program_stake_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "mint_address"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault"
+        },
+        {
+          "name": "mint_address"
+        },
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
       "name": "init_wallet",
       "discriminator": [
         141,
@@ -282,6 +345,10 @@
           }
         },
         {
+          "name": "restrited_account",
+          "writable": true
+        },
+        {
           "name": "buyer",
           "signer": true
         },
@@ -298,10 +365,15 @@
           "writable": true
         },
         {
+          "name": "pda_token_account",
+          "writable": true
+        },
+        {
           "name": "delegate"
         },
         {
-          "name": "token_program"
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
         }
       ],
       "args": [
@@ -369,6 +441,86 @@
       ]
     },
     {
+      "name": "restricted_balance_deposit",
+      "discriminator": [
+        174,
+        131,
+        137,
+        8,
+        246,
+        158,
+        64,
+        176
+      ],
+      "accounts": [
+        {
+          "name": "restrited_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "arg",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "program_stake_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "mint_address"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "mint_address"
+        },
+        {
+          "name": "source",
+          "writable": true
+        },
+        {
+          "name": "to",
+          "writable": true
+        },
+        {
+          "name": "delegate"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "user",
+          "type": "pubkey"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
       "name": "set_fee_wallet",
       "discriminator": [
         108,
@@ -420,6 +572,19 @@
   ],
   "accounts": [
     {
+      "name": "RestrictedAccount",
+      "discriminator": [
+        25,
+        15,
+        213,
+        98,
+        43,
+        1,
+        244,
+        213
+      ]
+    },
+    {
       "name": "Vault",
       "discriminator": [
         211,
@@ -468,6 +633,36 @@
       "code": 6003,
       "name": "UserNotWhitelisted",
       "msg": "User is not whitelisted"
+    },
+    {
+      "code": 6004,
+      "name": "InvalidFee",
+      "msg": "Invalid fee basis points."
+    },
+    {
+      "code": 6005,
+      "name": "InsufficientFundsForFees",
+      "msg": "Insufficient funds after fees."
+    },
+    {
+      "code": 6006,
+      "name": "UnauthorizedDelegate",
+      "msg": "Unauthorized delegate."
+    },
+    {
+      "code": 6007,
+      "name": "RestrictedAccount",
+      "msg": "Restricted account."
+    },
+    {
+      "code": 6008,
+      "name": "InvalidDelegate",
+      "msg": "Invalid delegate provided."
+    },
+    {
+      "code": 6009,
+      "name": "OverFlowError",
+      "msg": "number error overflow"
     }
   ],
   "types": [
@@ -494,6 +689,22 @@
           },
           {
             "name": "fee",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RestrictedAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user_address",
+            "type": "pubkey"
+          },
+          {
+            "name": "balance",
             "type": "u64"
           }
         ]
