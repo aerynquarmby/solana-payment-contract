@@ -30,6 +30,7 @@ describe("solana-contract", async () => {
     [utf8.encode("white-list")],
     ProgramId
   );
+
   const [restritedAccountPda, bumpRestritedAccount] = PublicKey.findProgramAddressSync(
     [payerPublicKey.toBuffer()],
     ProgramId
@@ -42,19 +43,18 @@ describe("solana-contract", async () => {
   const [programData, _bump] = PublicKey.findProgramAddressSync(
     [ProgramId.toBuffer()],
     bPfLoader);
+  // it("Is initialized wallet!", async () => {
 
-  it("Is initialized wallet!", async () => {
-
-    const tx = await program.methods
-      .initWallet()
-      .accounts({
-        owner: payer.publicKey,
-        vault: walletPda,
-        systemProgram: SYSTEM_PROGRAM_ID,
-      })
-      .rpc();
-    console.log("wallet signature", tx);
-  });
+  //   const tx = await program.methods
+  //     .initWallet()
+  //     .accounts({
+  //       owner: payer.publicKey,
+  //       vault: walletPda,
+  //       systemProgram: SYSTEM_PROGRAM_ID,
+  //     })
+  //     .rpc();
+  //   console.log("wallet signature", tx);
+  // });
 
   // it("Is initialized token program!", async () => {
 
@@ -72,17 +72,17 @@ describe("solana-contract", async () => {
   //   console.log("wallet signature", tx);
   // });
 
-  it("Is Add white-List address!", async () => {
+  // it("Is Add white-List address!", async () => {
 
-    const tx = await program.methods
-      .addToWhitelist(new PublicKey("2Etbf1ua9fyUgjeq4vDC8xKCHWn4uKGjRGwK8da4maYk"))
-      .accounts({
-        owner: payer.publicKey,
-        vault: walletPda,
-      })
-      .rpc();
-    console.log("Your transaction signature", tx);
-  });
+  //   const tx = await program.methods
+  //     .addToWhitelist(new PublicKey("2Etbf1ua9fyUgjeq4vDC8xKCHWn4uKGjRGwK8da4maYk"))
+  //     .accounts({
+  //       owner: payer.publicKey,
+  //       vault: walletPda,
+  //     })
+  //     .rpc();
+  //   console.log("Your transaction signature", tx);
+  // });
   // it("Is remove white-List address!", async () => {
 
   //   const tx = await program.methods
@@ -94,31 +94,32 @@ describe("solana-contract", async () => {
   //     .rpc();
   //   console.log("Your transaction signature", tx);
   // });
-  it("Is set fee Wallet !", async () => {
-
-    const tx = await program.methods
-      .setFeeWallet(new PublicKey("3aKVAEsQirTuBoC8d3QxbGyR91q7e8oseDF9q7wn63bS"))
-      .accounts({
-        owner: payer.publicKey,
-        vault: walletPda,
-      })
-      .rpc();
-    console.log("Your transaction signature", tx);
-  });
-
-  // it("Is approve spl token !", async () => {
+  // it("Is set fee Wallet !", async () => {
 
   //   const tx = await program.methods
-  //     .approveDelegate(new BN(amount))
+  //     .setFeeWallet(new PublicKey("3aKVAEsQirTuBoC8d3QxbGyR91q7e8oseDF9q7wn63bS"))
   //     .accounts({
-  //       authority: payer.publicKey,
-  //       to: sourceTokenAccount,
-  //       delegate: walletPda,
-  //       tokenProgram: TOKEN_PROGRAM_ID
-  //     }).signers([])
+  //       owner: payer.publicKey,
+  //       vault: walletPda,
+  //     })
   //     .rpc();
   //   console.log("Your transaction signature", tx);
   // });
+
+  // it("Is approve spl token !", async () => {
+
+//   const tx = await program.methods
+//     .approveDelegate(new BN(amount))
+//     .accounts({
+//       restritedAccount: restritedAccountPda,
+//       authority: payer.publicKey,
+//       to: sourceTokenAccount,
+//       delegate: walletPda,
+//       tokenProgram: TOKEN_PROGRAM_ID
+//     }).signers([])
+//     .rpc();
+//   console.log("Your transaction signature", tx);
+// });
   // it("Is Restricted Account balance!", async () => {
 
   //   const tx = await program.methods
@@ -144,7 +145,7 @@ describe("solana-contract", async () => {
   //     .purchaseProcess(new BN(amount), new BN(merchent_bps_point), new BN(fee_wallet_bps_point))
   //     .accounts({
   //       vault: walletPda,
-  //       restritedAccount: restritedAccountPda,
+        // restritedAccount: restritedAccountPda,
   //       pdaTokenAccount: pdaTokenAccount,
   //       buyer: payerPublicKey,
   //       source: sourceTokenAccount,
@@ -156,30 +157,30 @@ describe("solana-contract", async () => {
   //     .rpc();
   //   console.log("Your transaction signature", tx);
   // });
-  it("Is transfer owner-ship!", async () => {
+  // it("Is transfer owner-ship!", async () => {
 
-    const tx = await program.methods
-      .changeOwnerShip()
-      .accounts({
-        currentAuthority: payerPublicKey,
-        newAuthority: new PublicKey("3aKVAEsQirTuBoC8d3QxbGyR91q7e8oseDF9q7wn63bS"),
-        programId: ProgramId,
-        bpfUpgradableLoader: bPfLoader,
-        programData: programData
-      }).signers([payer.payer])
-      .rpc();
-    console.log("Your transaction signature", tx);
-  });
+  //   const tx = await program.methods
+  //     .changeOwnerShip()
+  //     .accounts({
+  //       currentAuthority: payerPublicKey,
+  //       newAuthority: new PublicKey("3aKVAEsQirTuBoC8d3QxbGyR91q7e8oseDF9q7wn63bS"),
+  //       programId: ProgramId,
+  //       bpfUpgradableLoader: bPfLoader,
+  //       programData: programData
+  //     }).signers([payer.payer])
+  //     .rpc();
+  //   console.log("Your transaction signature", tx);
+  // });
 
-  it("Is change account owner!", async () => {
+  // it("Is change account owner!", async () => {
 
-    const tx = await program.methods
-      .changeAccountOwner(new PublicKey("3aKVAEsQirTuBoC8d3QxbGyR91q7e8oseDF9q7wn63bS"))
-      .accounts({
-        owner: payerPublicKey,
-        vault: walletPda,
-      }).signers([])
-      .rpc();
-    console.log("Your transaction signature", tx);
-  });
+  //   const tx = await program.methods
+  //     .changeAccountOwner(new PublicKey("3aKVAEsQirTuBoC8d3QxbGyR91q7e8oseDF9q7wn63bS"))
+  //     .accounts({
+  //       owner: payerPublicKey,
+  //       vault: walletPda,
+  //     }).signers([])
+  //     .rpc();
+  //   console.log("Your transaction signature", tx);
+  // });
 });
