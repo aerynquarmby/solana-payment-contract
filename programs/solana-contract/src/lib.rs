@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use anchor_lang::solana_program;
-use solana_security_txt::security_txt;
 use anchor_spl::token::{self, Approve, Mint, Token, TokenAccount, Transfer};
+use solana_security_txt::security_txt;
 #[cfg(not(feature = "no-entrypoint"))]
 security_txt! {
     // Required fields
@@ -16,7 +16,7 @@ security_txt! {
     auditors: "None",
     acknowledgements: ""
 }
-declare_id!("93PpL2ZKMWvBhhQ6VYNiHmJPNrVANUH8kcW5UpU6dzjM");
+declare_id!("2kX5Vc47ABpaErfFUTzqFDcRs5ZRknYkdHhAtvCt8SbJ");
 #[program]
 pub mod solana_contract {
 
@@ -262,11 +262,15 @@ pub mod solana_contract {
         let seeds: &[&[u8]] = &[b"white-list", &[bump]];
         let signer = &[&seeds[..]];
         let restricted_account = &mut ctx.accounts.restrited_account;
+
         require!(
-            *ctx.accounts.owner.key == vault.owner,
+            *ctx.accounts.owner.key == vault.owner
+                || vault.whitelist.contains(&ctx.accounts.owner.key),
             CustomError::Unauthorized
         );
+
         require!(ctx.accounts.source.owner == user, CustomError::Unauthorized);
+        
         restricted_account.user_address = user;
         restricted_account.balance += amount;
 
@@ -309,6 +313,15 @@ pub mod solana_contract {
         vault.owner = new_owner;
         Ok(())
     }
+
+    pub fn close_vault(_ctx: Context<CloseVault>) -> Result<()> {
+        let payer = _ctx.accounts.identity.key();
+        let _vault: &mut Account<'_, Vault> = &mut _ctx.accounts.vault;
+
+        require!(payer != _vault.owner, CustomError::Unauthorized);
+
+        Ok(())
+    }
 }
 
 #[derive(Accounts)]
@@ -318,6 +331,16 @@ pub struct Initialize<'info> {
     pub vault: Account<'info, Vault>,
     #[account(mut)]
     pub owner: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+pub struct CloseVault<'info> {
+    #[account(mut, close = identity )]
+    pub vault: Account<'info, Vault>,
+
+    #[account(mut)]
+    pub identity: SystemAccount<'info>,
     pub system_program: Program<'info, System>,
 }
 

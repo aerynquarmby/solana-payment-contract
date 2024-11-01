@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/solana_contract.json`.
  */
 export type SolanaContract = {
-  "address": "93PpL2ZKMWvBhhQ6VYNiHmJPNrVANUH8kcW5UpU6dzjM",
+  "address": "2kX5Vc47ABpaErfFUTzqFDcRs5ZRknYkdHhAtvCt8SbJ",
   "metadata": {
     "name": "solanaContract",
     "version": "0.1.0",
@@ -216,6 +216,34 @@ export type SolanaContract = {
         {
           "name": "bpfUpgradableLoader",
           "address": "BPFLoaderUpgradeab1e11111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "closeVault",
+      "discriminator": [
+        141,
+        103,
+        17,
+        126,
+        72,
+        75,
+        29,
+        29
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "identity",
+          "writable": true
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
         }
       ],
       "args": []
